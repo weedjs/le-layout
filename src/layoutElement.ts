@@ -1,28 +1,16 @@
-import { _isA, _isS, _isF } from "./le-util";
-
-type tagType = string | Function | Array<any>;
+import { _isA, _isS, _isF } from "./le-utils";
 
 export class layoutElement {
-  tag?: tagType;
+  tag?: any;
   properties: any;
-  constructor(tag: tagType) {
-    this.tag = null;
-    this.properties = null;
-  }
+  constructor(tag: string | Array<any> | Function) { }
 
-  static layoutElement(tag: tagType, properties: object) {
+  static layoutElement(tag: any, properties: object) {
     return new layoutElement(tag);
   }
 }
 
-export function createElement(
-
-  // fragment
-  tag: tagType,
-
-  // object attributes on HTML elements
-  // array content (childern)
-  ...appends: Array<any>): layoutElement {
+export function createElement(tag: any, ...appends: Array<any>): layoutElement {
   let _$type: number;
   let properties: { [k: string]: any };
 
@@ -32,23 +20,19 @@ export function createElement(
 
   if (_isA(tag)) {
     _$type = 0;
-
-    // fragment
   }
 
   if (_isS(tag)) {
     _$type = 0;
-
-    // .class
-    // #id
     if (appends.length > 0) {
-      appends.map((item) => { });
+      appends.map((item) => { console.log(item); });
     }
   }
 
   if (_isF(tag)) {
     _$type = 1;
-    if (appends.length > 0) { }
+    if (appends.length > 0) {
+    }
   }
 
   return layoutElement.layoutElement(tag, properties);

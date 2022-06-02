@@ -6,10 +6,11 @@ index.d.ts = $(OUT_OBJECT)/index.d.ts
 
 .PHONY: all
 
-all: install build $(index.js) $(index.d.ts)
+# all: install build $(index.js) $(index.d.ts)
+all: build $(index.js) $(index.d.ts)
 
-install:
-	npm install
+# install:
+# 	npm install
 
 build:
 	npx tsc
@@ -18,13 +19,13 @@ modules := \
 	src/layoutElement.js \
 	src/layoutParser.js \
 	src/le-render.js \
-	src/le-util.js \
+	src/le-utils.js \
 
 d.ts := \
 	src/layoutElement.d.ts \
 	src/layoutParser.d.ts \
 	src/le-render.d.ts \
-	src/le-util.d.ts \
+	src/le-utils.d.ts \
 
 $(index.js): $(modules)
 	mkdir -p $(OUT_OBJECT)
