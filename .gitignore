@@ -106,3 +106,5 @@ dist
 # le-render
 src/*.js
 *.js
+src/*.d.ts
+*.d.ts
