@@ -1,9 +1,10 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "es6",
     "noImplicitAny": true,
     "removeComments": false,
     "preserveConstEnums": true,
+    "declaration": true,
     "sourceMap": false
   },
   "files": ["index.ts"]

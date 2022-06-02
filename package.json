@@ -1,5 +1,22 @@
 {
+  "scripts": {
+    "build": "make"
+  },
   "devDependencies": {
     "typescript": "^4.7.2"
-  }
+  },
+  "name": "le-render",
+  "description": "",
+  "version": "0.0.1",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/weedjs/le-render.git"
+  },
+  "author": "Ryan Martin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/weedjs/le-render/issues"
+  },
+  "homepage": "https://github.com/weedjs/le-render#readme"
 }
