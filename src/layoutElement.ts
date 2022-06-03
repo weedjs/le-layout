@@ -1,17 +1,28 @@
 import { _isA, _isS, _isF } from "./le-utils";
 
+/**
+ * marker for layoutParser
+ */
+export enum LAYOUT {
+  LE_ROOT_TYPE,
+  LE_FC_TYPE,
+  LE_FRAGMENT_TYPE
+};
+
 export class layoutElement {
+  _$type: number;
   tag?: any;
   properties: any;
-  constructor(tag: string | Array<any> | Function) { }
+  vd: number | string | symbol;
+  constructor(tag: string | Array<any> | Function, _$type: number) { }
 
-  static layoutElement(tag: any, properties: object) {
-    return new layoutElement(tag);
+  static layoutElement(tag: any, properties: object, type: number): layoutElement {
+    return new layoutElement(tag, 0);
   }
 }
 
 export function createElement(tag: any, ...appends: Array<any>): layoutElement {
-  let _$type: number;
+  let type: number;
   let properties: { [k: string]: any };
 
   if (typeof tag === "undefined") {
@@ -19,23 +30,23 @@ export function createElement(tag: any, ...appends: Array<any>): layoutElement {
   }
 
   if (_isA(tag)) {
-    _$type = 0;
+    type = LAYOUT.LE_FRAGMENT_TYPE;
   }
 
   if (_isS(tag)) {
-    _$type = 0;
+    type = LAYOUT.LE_ROOT_TYPE;
+
     if (appends.length > 0) {
-      appends.map((item) => { console.log(item); });
+      appends.map((item) => { });
     }
   }
 
   if (_isF(tag)) {
-    _$type = 1;
+    type = LAYOUT.LE_FC_TYPE;
+
     if (appends.length > 0) {
     }
   }
 
-  return layoutElement.layoutElement(tag, properties);
+  return layoutElement.layoutElement(tag, properties, type);
 }
-
-createElement(null);
