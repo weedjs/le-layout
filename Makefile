@@ -19,13 +19,15 @@ modules := \
 	src/layoutElement.js \
 	src/layoutParser.js \
 	src/le-render.js \
-	src/le-utils.js \
+	src/layoutElement.util.js \
+	src/layoutElement.type.js
 
 d.ts := \
 	src/layoutElement.d.ts \
 	src/layoutParser.d.ts \
 	src/le-render.d.ts \
-	src/le-utils.d.ts \
+	src/layoutElement.util.d.ts \
+	src/layoutElement.type.d.ts
 
 $(index.js): $(modules)
 	mkdir -p $(OUT_OBJECT)

@@ -1,29 +1,9 @@
-import { _isA, _isS, _isF } from "./le-utils";
+import { _isA, _isS, _isF } from "./layoutElement.util";
+import { LAYOUT, layoutElement as LE } from "./layoutElement.type";
 
-/**
- * marker for layoutParser
- */
-export enum LAYOUT {
-  LE_ROOT_TYPE,
-  LE_FC_TYPE,
-  LE_FRAGMENT_TYPE
-};
-
-export class layoutElement {
-  _$type: number;
-  tag?: any;
-  properties: any;
-  vd: number | string | symbol;
-  constructor(tag: string | Array<any> | Function, _$type: number) { }
-
-  static layoutElement(tag: any, properties: object, type: number): layoutElement {
-    return new layoutElement(tag, 0);
-  }
-}
-
-export function createElement(tag: any, ...appends: Array<any>): layoutElement {
+export function createElement(tag: any, ...appends: any[]): LE {
   let type: number;
-  let properties: { [k: string]: any };
+  let properties: { [k: string]: any } = {};
 
   if (typeof tag === "undefined") {
     throw "TypeError: tag's type should be string Function or Array";
@@ -31,13 +11,21 @@ export function createElement(tag: any, ...appends: Array<any>): layoutElement {
 
   if (_isA(tag)) {
     type = LAYOUT.LE_FRAGMENT_TYPE;
+
+    console.log("FRAGMENT")
   }
 
   if (_isS(tag)) {
-    type = LAYOUT.LE_ROOT_TYPE;
+    type = LAYOUT.LE_RE_TYPE;
 
     if (appends.length > 0) {
-      appends.map((item) => { });
+      appends.map((item) => {
+        if (typeof item === "object" && !(Array.isArray(item))) {
+          for (let key in item) {
+            properties[key] = item[key];
+          }
+        }
+      });
     }
   }
 
@@ -45,8 +33,13 @@ export function createElement(tag: any, ...appends: Array<any>): layoutElement {
     type = LAYOUT.LE_FC_TYPE;
 
     if (appends.length > 0) {
+
+      // order parameters
+      properties.parameters = [...appends];
     }
   }
 
-  return layoutElement.layoutElement(tag, properties, type);
+  console.log(properties);
+
+  return LE.layoutElement(tag, properties, type);
 }
