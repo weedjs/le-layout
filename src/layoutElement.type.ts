@@ -1,7 +1,7 @@
 /**
  * marker for layoutParser
  */
- export enum LAYOUT {
+ export enum LAYOUT_TYPE {
 
   // root element
   LE_RE_TYPE,
@@ -25,3 +25,5 @@ export class layoutElement {
     return new layoutElement(tag, 0);
   }
 }
+
+// rendering queue

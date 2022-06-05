@@ -1,5 +1,5 @@
 import { _isA, _isS, _isF } from "./layoutElement.util";
-import { LAYOUT, layoutElement as LE } from "./layoutElement.type";
+import { LAYOUT_TYPE, layoutElement as LE } from "./layoutElement.type";
 
 export function createElement(tag: any, ...appends: any[]): LE {
   let type: number;
@@ -10,19 +10,33 @@ export function createElement(tag: any, ...appends: any[]): LE {
   }
 
   if (_isA(tag)) {
-    type = LAYOUT.LE_FRAGMENT_TYPE;
+    type = LAYOUT_TYPE.LE_FRAGMENT_TYPE;
 
     console.log("FRAGMENT")
   }
 
   if (_isS(tag)) {
-    type = LAYOUT.LE_RE_TYPE;
+    type = LAYOUT_TYPE.LE_RE_TYPE;
 
     if (appends.length > 0) {
       appends.map((item) => {
         if (typeof item === "object" && !(Array.isArray(item))) {
           for (let key in item) {
-            properties[key] = item[key];
+            if (properties.hasOwnProperty(`${key}`)) {
+              if (Array.isArray(properties[key])) {
+                properties[key] = [
+                  ...properties[key],
+                  ...(Array.isArray(item[key]) ? item[key] : [item[key]])
+                ];
+              } else {
+                properties[key] = [
+                  properties[key],
+                  ...(Array.isArray(item[key]) ? item[key] : [item[key]])
+                ];
+              }
+            } else {
+              properties[key] = item[key];
+            }
           }
         }
       });
@@ -30,7 +44,7 @@ export function createElement(tag: any, ...appends: any[]): LE {
   }
 
   if (_isF(tag)) {
-    type = LAYOUT.LE_FC_TYPE;
+    type = LAYOUT_TYPE.LE_FC_TYPE;
 
     if (appends.length > 0) {
 
