@@ -1,4 +1,4 @@
-import { _isA, _isS, _isF } from "./layoutElement.util";
+import { _isA, _isS, _isF, _mapSetToArray } from "./layoutElement.util";
 import { LAYOUT_TYPE, layoutElement as LE } from "./layoutElement.type";
 
 export function createElement(tag: any, ...appends: any[]): LE {
@@ -12,7 +12,7 @@ export function createElement(tag: any, ...appends: any[]): LE {
   if (_isA(tag)) {
     type = LAYOUT_TYPE.LE_FRAGMENT_TYPE;
 
-    console.log("FRAGMENT")
+    console.log("FRAGMENT");
   }
 
   if (_isS(tag)) {
@@ -21,23 +21,10 @@ export function createElement(tag: any, ...appends: any[]): LE {
     if (appends.length > 0) {
       appends.map((item) => {
         if (typeof item === "object" && !(Array.isArray(item))) {
-          for (let key in item) {
-            if (properties.hasOwnProperty(`${key}`)) {
-              if (Array.isArray(properties[key])) {
-                properties[key] = [
-                  ...properties[key],
-                  ...(Array.isArray(item[key]) ? item[key] : [item[key]])
-                ];
-              } else {
-                properties[key] = [
-                  properties[key],
-                  ...(Array.isArray(item[key]) ? item[key] : [item[key]])
-                ];
-              }
-            } else {
-              properties[key] = item[key];
-            }
-          }
+
+          // get properties array
+          // _mapSetToArray:layoutElement.util.ts
+          _mapSetToArray(item, properties);
         }
       });
     }

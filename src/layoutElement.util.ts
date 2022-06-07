@@ -9,3 +9,23 @@ export function _isF(type: any): boolean {
 export function _isA(type: any): boolean {
   return Array.isArray(type) ? true : false;
 }
+
+export function _mapSetToArray(item: { [k: string]: any }, dsc: { [k: string]: any }) {
+  for (let key in item) {
+    if (dsc.hasOwnProperty(`${key}`)) {
+      if (Array.isArray(dsc[key])) {
+        dsc[key] = [
+          ...dsc[key],
+          ...(Array.isArray(item[key]) ? item[key] : [item[key]])
+        ];
+      } else {
+        dsc[key] = [
+          dsc[key],
+          ...(Array.isArray(item[key]) ? item[key] : [item[key]])
+        ];
+      }
+    } else {
+      dsc[key] = item[key];
+    }
+  }
+}
