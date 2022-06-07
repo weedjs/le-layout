@@ -2,11 +2,25 @@
 
 ## render()
 
+- <details>
+  <summary>Type</summary>
+  
+  ```ts
+  ```
+</details>
+
 - Detalis
 
     in Txxxxxxx, should work with `mappingDOM`.
 
 ## Layout()
+
+- <details>
+  <summary>Type</summary>
+  
+  ```ts
+  ```
+</details>
 
 - Detalis
     ```
