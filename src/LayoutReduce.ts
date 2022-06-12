@@ -5,4 +5,4 @@ export function isTypeOfLayoutElement(arg: any): boolean {
 
   return true;
 }
-export function layoutParser() { }
+export function LayoutReduce() { }
